@@ -1,2 +1,4 @@
 *.pyc
 commit.dat
+results/
+OBSOLETE/

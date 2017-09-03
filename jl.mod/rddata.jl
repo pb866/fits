@@ -1,5 +1,8 @@
+__precompile__()
+
+
 """
-# Module _rddata\_df_
+# Module _rddata_
 
 Read in data from TUV (version 5.2 format) output file and save
 χ-dependent _j_ values to dataframe.
@@ -11,7 +14,7 @@ Read in data from TUV (version 5.2 format) output file and save
 - read_data (private)
 - read_between (private)
 """
-module rddata_df
+module rddata
 using DataFrames
 export read_j
 
