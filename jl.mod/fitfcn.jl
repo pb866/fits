@@ -28,9 +28,16 @@ function fit_j(jvals)
   # Initialise arrays for fitting data
   fit = []; sigma = []; rmse = []; R2 = []
 
+  delrxn = Int64[]
   # Loop over all j data
   for i = 2:length(jvals)
     ydata = jvals[i].data # define y data
+    if ydata[1] == 0.
+      println("\033[95mReaction with no data skipped:\033[0m")
+      println(convert(String,names(jvals)[i]))
+      push!(delrxn,i)
+      continue
+    end
 
     # Define fit function with initial guesses
     model(x,p) = p[1].*(cos.(x)).^(p[2]).*exp.(-p[3]./cos.(x))
@@ -39,15 +46,16 @@ function fit_j(jvals)
     # Derive fit
     push!(fit, curve_fit(model, xdata, ydata, p0))
     # Derive sigma with 95% confidence
-    push!(sigma, estimate_errors(fit[i-1],0.95))
+    push!(sigma, estimate_errors(fit[i-1-length(delrxn)],0.95))
     # Calculate statistical data for RMSE and R^2
-    ss_err = sum(fit[i-1].resid.^2)
+    ss_err = sum(fit[i-1-length(delrxn)].resid.^2)
     ss_tot = sum((ydata-mean(ydata)).^2)
     # RMSE
-    push!(rmse, √(ss_err/fit[i-1].dof))
+    push!(rmse, √(ss_err/fit[i-1-length(delrxn)].dof))
     # R^2
     push!(R2, 1. - (ss_err/ss_tot))
   end
+  for i in delrxn  delete!(jvals, i)  end
 
   return fit, sigma, rmse, R2
 

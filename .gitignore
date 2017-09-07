@@ -1,4 +1,5 @@
 *.pyc
 commit.dat
-results/
+*.png
+*.pdf
 OBSOLETE/

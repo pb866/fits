@@ -19,4 +19,4 @@ println("fit data...")
 fit, sigma, rmse, R2 = fit_j(jvals)
 # Generate output
 println("plot data...")
-plot_j(jvals,fit)
+plot_j(jvals,ARGS[1],fit)
