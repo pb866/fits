@@ -27,17 +27,7 @@ Read in data from TUV (version 5.2 format) output file and save
 """
 function read_j(ifile)
 
-# Test script argument and ask for input file, if missing
-  if ifile == ""
-    ifile = print("Enter file with TUV data: "); ifile = readline(STDIN)
-  end
-
-# Terminate script, if input file doesn't exist
-  if isfile(ifile) == false
-    println("$ifile does not exist. Script terminated. Exit code: 99."); exit(99)
-  end
-
-# Read reactions and j values from input file
+  # Read reactions and j values from input file
   open(ifile,"r") do f
     lines = readlines(f)
     jvals = read_head(lines)
@@ -56,28 +46,16 @@ Initialise dataframe with heaer.
 """
 function read_head(lines)
 
-# Retrieve lines from TUV file between key words omitting labels before equal sign
+  # Retrieve lines from TUV file between key words omitting labels before equal sign
   rxns = read_between(lines, "Photolysis rate coefficients, s-1", "values at z", " = ", 2)
 
-# Initialise dataframe with sza and reactions columns
+  # Initialise dataframe with sza and reactions columns
   jvals = DataFrame()
   header = Symbol["sza"]
   for j in rxns  push!(header,j)  end
   for name in header  jvals[name] = Float64[]  end
 
-# Tests
-  # println(header)
-  # push!(jvals,[1,2,3])
-  # println(jvals)
-  # println(jvals[2])
-  # println(jvals[Symbol("O3 -> O2 + O(1D)")])
-
-  # col2 = convert(String,names(jvals)[2])
-  # println("$(names(jvals))")
-  # println("$(typeof(names(jvals)))")
-  # println(col2)
-
-# Return dataframe
+  # Return dataframe
   return jvals
 end # function read_head
 
@@ -90,7 +68,7 @@ and append dataframe (df) initialised by function _read_head_.
 """
 function read_data(lines,jvals)
 
-# Array with data lines as strings
+  # Array with data lines as strings
   rawdata = read_between(lines,"sza, deg.", "---")
   # Initialise j data as floats
   jdata = []
@@ -120,7 +98,7 @@ split by Sep and only column col is returned.
 """
 function read_between(lines, lstart::String, lend::String, Sep::String="", col::Int64=0)
 
-# Find first line with with reaction definitions in TUV input file
+  # Find first line with with reaction definitions in TUV input file
   start = Int64 # Initialise index of starting line to use outside of loop
   for i = 1:length(lines)
     if contains(lines[i], lstart)
@@ -129,7 +107,7 @@ function read_between(lines, lstart::String, lend::String, Sep::String="", col::
     end
   end
 
-# Create array with reactions from definition list in TUV input file
+  # Create array with reactions from definition list in TUV input file
   selected_lines = Array{String}(0)
   for i = start:length(lines)
     if contains(lines[i], lend)  break  end
