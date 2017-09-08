@@ -98,7 +98,7 @@ def fitTUV(xdata,ydata):
     from scipy.optimize import leastsq # for curve fit
     from datfcn import order
 
-# curve fitting
+    # curve fitting
     Param=collections.namedtuple('Param','l m n')
     p_guess=Param(l=ydata[0]*np.exp(-0.8),m=0.8,n=0.25)
     p,cov,infodict,mesg,ier = leastsq(residuals,p_guess,args=(xdata,ydata),full_output=True)
@@ -140,7 +140,7 @@ def fitStat(xdata,ydata,p,cov,infodict):
     Dependencies:
         uses:           residuals,datfcn.order,numpy
         called from:    datfcn.xydat
-        """
+    """
     # load functions
     import numpy as np
     from datfcn import order

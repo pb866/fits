@@ -1,2 +1,5 @@
+*.dat
 *.pyc
-commit.dat
+*.png
+*.pdf
+OBSOLETE/
