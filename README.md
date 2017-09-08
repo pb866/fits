@@ -4,7 +4,7 @@ photMCM
 Julia script to derive MCM parameterisations for photolysis processes from TUV output file
 (in version 5.2 format).
 
-    j / s-1 = l·(cos(χ))^m·exp(-n·sec(χ))       (1)
+    j / s-1 = l·(cos(χ))^m·exp(-n·sec(χ))
 
 
 Dependencies
@@ -14,7 +14,7 @@ The script is written in Julia (julialang). Compilers for all platforms and help
 can be obtained at https://julialang.org/.
 
 For python users, a python2.7 script is given as well. Python scripts are no longer
-supported and run unreliable.
+supported and run unreliably.
 
 
 Running the julia script
@@ -24,7 +24,7 @@ Place output file from TUV model run in the main folder and call julia script wi
 
     julia photMCM.jl <scenario name>
 
-The scenario name is the name as define by the parameter `outfil` in the TUV input file,
+The scenario name is the name defined by the parameter `outfil` in the TUV input file,
 i.e. the file name without the `.txt` file ending.
 
 
@@ -42,9 +42,9 @@ Differences in the python script
 --------------------------------
 
 In the python script specify the full file name with file ending of the TUV output file
-as script arguments.  
-Output is given in the main folder as <scenario name>.dat/pdf.  
-Another file <scenario name>.par is generated with the reaction numbers from the TUV
+as script argument.  
+Output is given in the main folder as `<scenario name>.dat/pdf`.  
+Another file `<scenario name>.par` is generated with the reaction numbers from the TUV
 output file and the plain parameters for easier post-processing by further scripts.
 
 
@@ -69,4 +69,4 @@ Version 1.1
 - Text output with parameters and statistical information in <scenario name>.dat
   and plain parameters in <scenario name>.par
 - Comparisons of parameterisations against TUV calculated data in plots in
-  <scenario name>.pdf
+  \<scenario name\>.pdf
